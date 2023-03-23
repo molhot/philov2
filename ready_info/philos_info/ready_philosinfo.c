@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:51:36 by user              #+#    #+#             */
-/*   Updated: 2023/03/23 13:18:38 by user             ###   ########.fr       */
+/*   Updated: 2023/03/23 14:36:10 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,12 @@ static	bool	create_forks(t_allinfo *info)
 	size_t	fork_num;
 
 	info->forks = malloc(sizeof(pthread_mutex_t) * info->philo_num);
-	info->timecheck_same = malloc(sizeof(pthread_mutex_t) * info->philo_num);
-	if (info->forks == NULL || info->timecheck_same == NULL)
+	if (info->forks == NULL)
 		return (freereturn(info));
 	fork_num = 0;
 	while (fork_num != info->philo_num)
 	{
 		if (pthread_mutex_init(&info->forks[fork_num], NULL) != 0)
-			return (freereturn(info));
-		if (pthread_mutex_init(&info->timecheck_same[fork_num], NULL) != 0)
 			return (freereturn(info));
 		fork_num++;
 	}

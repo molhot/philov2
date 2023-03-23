@@ -24,9 +24,7 @@ bool	die_check(t_allinfo *info)
 
 void	livestart_ch(t_philo *info)
 {
-	pthread_mutex_lock(&(info->all_info-> \
-	timecheck_same[info->number_of_philo - 1]));
+	pthread_mutex_lock(&(info->timecheck_same));
 	info->philo_livedstart = getnowtime_ms();
-	pthread_mutex_unlock(&(info->all_info-> \
-	timecheck_same[info->number_of_philo - 1]));
+	pthread_mutex_unlock(&(info->timecheck_same));
 }

@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:38:57 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/23 14:01:42 by user             ###   ########.fr       */
+/*   Updated: 2023/03/23 14:38:02 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static bool	philo_deathistrue(size_t *p_n, t_allinfo *info, long long *d_t)
 	pthread_mutex_t	*timech;
 	pthread_mutex_t	*diech;
 
-	timech = &(info->timecheck_same[*p_n]);
+	timech = &(info->philoinfo[*p_n].timecheck_same);
 	pthread_mutex_lock(timech);
 	lvs = info->philoinfo[*p_n].philo_livedstart;
 	if (getnowtime_ms() - lvs < *(d_t) * 1000)

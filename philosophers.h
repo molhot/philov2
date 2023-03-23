@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:57:45 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/23 13:18:48 by user             ###   ########.fr       */
+/*   Updated: 2023/03/23 14:37:51 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct philo_info	t_philo;
 
 typedef struct all_info {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*timecheck_same;
 	pthread_mutex_t	write;
 	pthread_mutex_t	diecheck;
 	t_philo			*philoinfo;
@@ -49,6 +48,7 @@ typedef struct all_info {
 }	t_allinfo;
 
 typedef struct philo_info{
+	pthread_mutex_t timecheck_same;
 	size_t			number_of_philo;
 	size_t			how_eated;
 	pthread_t		philo_thread;

@@ -28,7 +28,6 @@ void	mutex_destroy(t_allinfo *info)
 	while (num != info->philo_num)
 	{
 		pthread_mutex_destroy(&info->forks[num]);
-		pthread_mutex_destroy(&info->timecheck_same[num]);
 		num++;
 	}
 }

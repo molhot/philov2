@@ -15,5 +15,4 @@
 void	free_mutex(t_allinfo *info)
 {
 	free(info->forks);
-	free(info->timecheck_same);
 }

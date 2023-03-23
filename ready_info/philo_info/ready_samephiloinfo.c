@@ -28,6 +28,7 @@ static	void	insert_info_tophilo(int philonum, t_allinfo *info, char **argv, int 
 	((info->philoinfo)[philonum - 1]).time_to_sleep = ft_atoi(argv[4]);
 	((info->philoinfo)[philonum - 1]).time_to_die = ft_atoi(argv[2]);
 	((info->philoinfo)[philonum - 1]).time_to_think = 0;
+	pthread_mutex_init(&(((info->philoinfo)[philonum - 1]).timecheck_same), NULL);
 }
 
 bool	create_samephilo(t_allinfo *info, char **argv, int argc)
@@ -60,5 +61,6 @@ bool	create_samephilo(t_allinfo *info, char **argv, int argc)
 	((info->philoinfo)[0]).time_to_eat = ft_atoi(argv[3]);
 	((info->philoinfo)[0]).time_to_sleep = ft_atoi(argv[4]);
 	((info->philoinfo)[0]).time_to_think = 0;
+	pthread_mutex_init(&(((info->philoinfo)[0]).timecheck_same), NULL);
 	return (true);
 }
