@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:57:45 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/22 22:17:31 by user             ###   ########.fr       */
+/*   Updated: 2023/03/23 13:18:48 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct all_info {
 	t_philo			*philoinfo;
 	pthread_t		checkthread;
 	size_t			philo_num;
-	int				time_to_die;
 	bool			philo_die_ornot;
 }	t_allinfo;
 
@@ -77,7 +76,7 @@ bool			create_samephilo(t_allinfo *info, char **argv, int argc);
 bool    		constructer(t_allinfo *info);
 void			*philolife_life(void *info_t);
 bool			print_action(t_allinfo *info, size_t pn, char *action);
-bool			eat_drop(t_philo *info, int l_f, int r_f, size_t pn);
+bool			eat_drop(t_philo *info, pthread_mutex_t	*lf, pthread_mutex_t *rf, size_t pn);
 bool			error_unlockonefork(pthread_mutex_t *f);
 void			unlock_allfork(pthread_mutex_t *lf, pthread_mutex_t *rf);
 bool			error_unlockallfork(pthread_mutex_t *lf, pthread_mutex_t *rf);

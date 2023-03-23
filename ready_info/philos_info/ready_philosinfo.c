@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:51:36 by user              #+#    #+#             */
-/*   Updated: 2023/03/22 20:04:48 by user             ###   ########.fr       */
+/*   Updated: 2023/03/23 13:18:38 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static	bool	create_forks(t_allinfo *info)
 bool	ready_philosinfo(t_allinfo *info, char **argv)
 {
 	info->philo_num = ft_atoi(argv[1]);
-	info->time_to_die = ft_atoi(argv[2]);
 	info->philo_die_ornot = false;
     if (philosmutex_init(info) == false)
         return (false);
