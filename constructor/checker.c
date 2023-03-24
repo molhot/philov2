@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:38:57 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/24 17:03:47 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/24 17:34:19 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static bool	philo_satisfied(t_allinfo *info)
 	{
 		pthread_mutex_lock(&(info->philoinfo)[countup].eat_ch);
 		if ((info->philoinfo)[countup].correctend == false)
+		{
+			pthread_mutex_unlock(&(info->philoinfo)[countup].eat_ch);
 			return (false);
+		}
 		pthread_mutex_unlock(&(info->philoinfo)[countup].eat_ch);
 		countup++;
 	}
