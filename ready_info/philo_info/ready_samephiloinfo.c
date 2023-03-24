@@ -31,7 +31,7 @@ t_allinfo *info, char **argv, int argc)
 	((info->philoinfo)[philonum - 1]).time_to_think = 0;
 	pthread_mutex_init(&(((info->philoinfo)[philonum - \
 	1]).timecheck_same), NULL);
-	pthread_mutex_init(&(((info->philoinfo)[philonum - \
+	pthread_mutex_init(&(((info->philoinfo)[philonum -
 	1]).eat_ch), NULL);
 }
 
@@ -40,7 +40,7 @@ bool	create_samephilo(t_allinfo *info, char **argv, int argc)
 	size_t	l_f_n;
 
 	l_f_n = 1;
-	info->philoinfo = (t_philo *)malloc(sizeof(t_allinfo) * info->philo_num);
+	info->philoinfo = (t_philo *)malloc(sizeof(t_philo) * info->philo_num);
 	if (info->philoinfo == NULL)
 	{
 		malloc_error();

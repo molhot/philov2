@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:38:57 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/24 17:34:19 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 18:55:02 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,16 @@ void	*philo_checker(void *info_i)
 	{
 		if (philo_satisfied(info) == true)
 			return (NULL);
+		pthread_mutex_lock(&(info->philoinfo)[philo_num].eat_ch);
 		if ((info->philoinfo)[philo_num].correctend == false)
+		{
 			if (philo_deathistrue(&philo_num, info, &d_t) == false)
+			{
+				pthread_mutex_unlock(&(info->philoinfo)[philo_num].eat_ch);
 				return (NULL);
+			}
+		}
+		pthread_mutex_unlock(&(info->philoinfo)[philo_num].eat_ch);
 		philo_num++;
 		if (philo_num == info->philo_num)
 			philo_num = 0;
