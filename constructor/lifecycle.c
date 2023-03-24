@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lifecycle.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:54:22 by user              #+#    #+#             */
-/*   Updated: 2023/03/23 13:19:54 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 16:48:50 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	*philolife_life(void *info_t)
 	info = (t_philo *)info_t;
 	lf = &(info->all_info->forks[info->fork_info.l_fork]);
 	rf = &(info->all_info->forks[info->fork_info.r_fork]);
-	if (info->number_of_philo == info->all_info->philo_num && info->all_info->philo_num % 2 == 1)
+	if (info->number_of_philo == info->all_info->philo_num && \
+	info->all_info->philo_num % 2 == 1)
 		usleep(200);
 	livestart_ch(info);
 	while (1)
@@ -33,6 +34,8 @@ void	*philolife_life(void *info_t)
 		if (sleeping(info) == false)
 			return (NULL);
 	}
+	pthread_mutex_lock(&(info->eat_ch));
 	info->correctend = true;
+	pthread_mutex_unlock(&(info->eat_ch));
 	return (NULL);
 }

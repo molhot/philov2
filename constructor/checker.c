@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:38:57 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/23 14:38:02 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 17:03:47 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	unlockfork(pthread_mutex_t *timech, pthread_mutex_t *diech)
 	return (false);
 }
 
-static bool not_death(pthread_mutex_t *timech)
+static bool	not_death(pthread_mutex_t *timech)
 {
 	pthread_mutex_unlock(timech);
 	return (true);
@@ -27,7 +27,7 @@ static bool not_death(pthread_mutex_t *timech)
 
 static bool	philo_deathistrue(size_t *p_n, t_allinfo *info, long long *d_t)
 {
-	long	long	lvs;
+	long long		lvs;
 	pthread_mutex_t	*timech;
 	pthread_mutex_t	*diech;
 
@@ -46,26 +46,37 @@ static bool	philo_deathistrue(size_t *p_n, t_allinfo *info, long long *d_t)
 	return (unlockfork(timech, diech));
 }
 
+static bool	philo_satisfied(t_allinfo *info)
+{
+	size_t	countup;
+	size_t	all_pn;
+
+	countup = 0;
+	all_pn = info->philo_num;
+	while (countup != all_pn)
+	{
+		pthread_mutex_lock(&(info->philoinfo)[countup].eat_ch);
+		if ((info->philoinfo)[countup].correctend == false)
+			return (false);
+		pthread_mutex_unlock(&(info->philoinfo)[countup].eat_ch);
+		countup++;
+	}
+	return (true);
+}
+
 void	*philo_checker(void *info_i)
 {
 	size_t		philo_num;
 	t_allinfo	*info;
-	size_t		countup;
 	long long	d_t;
 
 	philo_num = 0;
-	countup = 0;
 	info = (t_allinfo *)info_i;
 	d_t = info->philoinfo[philo_num].time_to_die;
 	while (1)
 	{
-		while ((info->philoinfo)[countup].correctend == true)
-		{
-			countup++;
-			if (countup == info->philo_num)
-				return (NULL);
-		}
-		countup = 0;
+		if (philo_satisfied(info) == true)
+			return (NULL);
 		if ((info->philoinfo)[philo_num].correctend == false)
 			if (philo_deathistrue(&philo_num, info, &d_t) == false)
 				return (NULL);

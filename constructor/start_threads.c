@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_threads.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:43:20 by user              #+#    #+#             */
-/*   Updated: 2023/03/22 19:53:13 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 13:25:07 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static	bool	checker_start(t_allinfo *info)
 	return (true);
 }
 
-bool    constructer(t_allinfo *info)
+bool	constructer(t_allinfo *info)
 {
-    size_t	philo_num;
+	size_t	philo_num;
 
 	philo_num = 0;
 	while (philo_num < info->philo_num)

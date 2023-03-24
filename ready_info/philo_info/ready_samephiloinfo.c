@@ -12,7 +12,8 @@
 
 #include "../../philosophers.h"
 
-static	void	insert_info_tophilo(int philonum, t_allinfo *info, char **argv, int argc)
+static	void	insert_info_tophilo(int philonum, \
+t_allinfo *info, char **argv, int argc)
 {
 	((info->philoinfo)[philonum - 1]).fork_info.r_fork = philonum - 2;
 	((info->philoinfo)[philonum - 1]).fork_info.l_fork = philonum - 1;
@@ -28,14 +29,17 @@ static	void	insert_info_tophilo(int philonum, t_allinfo *info, char **argv, int 
 	((info->philoinfo)[philonum - 1]).time_to_sleep = ft_atoi(argv[4]);
 	((info->philoinfo)[philonum - 1]).time_to_die = ft_atoi(argv[2]);
 	((info->philoinfo)[philonum - 1]).time_to_think = 0;
-	pthread_mutex_init(&(((info->philoinfo)[philonum - 1]).timecheck_same), NULL);
+	pthread_mutex_init(&(((info->philoinfo)[philonum - \
+	1]).timecheck_same), NULL);
+	pthread_mutex_init(&(((info->philoinfo)[philonum - \
+	1]).eat_ch), NULL);
 }
 
 bool	create_samephilo(t_allinfo *info, char **argv, int argc)
 {
 	size_t	l_f_n;
 
-	l_f_n = 2;
+	l_f_n = 1;
 	info->philoinfo = (t_philo *)malloc(sizeof(t_allinfo) * info->philo_num);
 	if (info->philoinfo == NULL)
 	{
@@ -49,18 +53,5 @@ bool	create_samephilo(t_allinfo *info, char **argv, int argc)
 	}
 	((info->philoinfo)[0]).fork_info.r_fork = 0;
 	((info->philoinfo)[0]).fork_info.l_fork = info->philo_num - 1;
-	((info->philoinfo)[0]).how_eated = 0;
-	((info->philoinfo)[0]).number_of_philo = 1;
-	((info->philoinfo)[0]).time_to_die = ft_atoi(argv[2]);
-	((info->philoinfo)[0]).correctend = false;
-	if (argc == 6)
-		((info->philoinfo)[0]).eat_limit = ft_atoi(argv[5]);
-	else
-		((info->philoinfo)[0]).eat_limit = -1;
-	((info->philoinfo)[0]).all_info = info;
-	((info->philoinfo)[0]).time_to_eat = ft_atoi(argv[3]);
-	((info->philoinfo)[0]).time_to_sleep = ft_atoi(argv[4]);
-	((info->philoinfo)[0]).time_to_think = 0;
-	pthread_mutex_init(&(((info->philoinfo)[0]).timecheck_same), NULL);
 	return (true);
 }

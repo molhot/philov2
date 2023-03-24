@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ready_philosinfo.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:51:36 by user              #+#    #+#             */
-/*   Updated: 2023/03/23 14:36:10 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 13:24:02 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ bool	ready_philosinfo(t_allinfo *info, char **argv)
 {
 	info->philo_num = ft_atoi(argv[1]);
 	info->philo_die_ornot = false;
-    if (philosmutex_init(info) == false)
-        return (false);
-    if (create_forks(info) == false)
-        return (false);
+	if (philosmutex_init(info) == false)
+		return (false);
+	if (create_forks(info) == false)
+		return (false);
 	return (true);
 }

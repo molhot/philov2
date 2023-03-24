@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_think_eat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 01:59:29 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/23 13:17:26 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 13:28:57 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	wait_func(long long time, t_philo *info)
 {
-	long long endtime;
+	long long	endtime;
 
 	endtime = getnowtime_ms();
 	while (getnowtime_ms() - endtime < time * 1000)
@@ -37,7 +37,8 @@ static bool	wait_func(long long time, t_philo *info)
 	return (true);
 }
 
-bool	eat_drop(t_philo *info, pthread_mutex_t	*lf, pthread_mutex_t *rf, size_t pn)
+bool	eat_drop(t_philo *info, pthread_mutex_t	*lf, \
+pthread_mutex_t *rf, size_t pn)
 {
 	pthread_mutex_lock(lf);
 	if (print_action(info->all_info, pn, "has taken a fork") == false)
@@ -59,11 +60,13 @@ bool	eat_drop(t_philo *info, pthread_mutex_t	*lf, pthread_mutex_t *rf, size_t pn
 
 bool	sleeping(t_philo *info)
 {
-	if (print_action(info->all_info, info->number_of_philo, "is sleeping") == false)
+	if (print_action(info->all_info, info->number_of_philo, \
+	"is sleeping") == false)
 		return (false);
 	if (wait_func(info->time_to_sleep, info) == false)
 		return (false);
-	if (print_action(info->all_info, info->number_of_philo, "is thinking") == false)
+	if (print_action(info->all_info, info->number_of_philo, \
+	"is thinking") == false)
 		return (false);
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:57:45 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/23 14:37:51 by user             ###   ########.fr       */
+/*   Updated: 2023/03/24 16:47:06 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ typedef struct all_info {
 }	t_allinfo;
 
 typedef struct philo_info{
-	pthread_mutex_t timecheck_same;
+	pthread_mutex_t	timecheck_same;
+	pthread_mutex_t	eat_ch;
 	size_t			number_of_philo;
 	size_t			how_eated;
 	pthread_t		philo_thread;
@@ -73,10 +74,11 @@ bool			ready_philosinfo(t_allinfo *info, char **argv);
 bool			create_samephilo(t_allinfo *info, char **argv, int argc);
 
 //construct
-bool    		constructer(t_allinfo *info);
+bool			constructer(t_allinfo *info);
 void			*philolife_life(void *info_t);
 bool			print_action(t_allinfo *info, size_t pn, char *action);
-bool			eat_drop(t_philo *info, pthread_mutex_t	*lf, pthread_mutex_t *rf, size_t pn);
+bool			eat_drop(t_philo *info, pthread_mutex_t	*lf, \
+pthread_mutex_t *rf, size_t pn);
 bool			error_unlockonefork(pthread_mutex_t *f);
 void			unlock_allfork(pthread_mutex_t *lf, pthread_mutex_t *rf);
 bool			error_unlockallfork(pthread_mutex_t *lf, pthread_mutex_t *rf);
@@ -88,8 +90,6 @@ bool			die_check(t_allinfo *info);
 void			livestart_ch(t_philo *info);
 
 //destruct
-
-
 
 /************************basicfunc**************************/
 int				ft_atoi(const char *str);
