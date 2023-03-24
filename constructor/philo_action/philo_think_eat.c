@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 01:59:29 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/24 13:28:57 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/24 23:11:16 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ pthread_mutex_t *rf, size_t pn)
 
 bool	sleeping(t_philo *info)
 {
+	if (info->number_of_philo == 2 && info->all_info->philo_num % 2 == 1)
+		usleep(100);
 	if (print_action(info->all_info, info->number_of_philo, \
 	"is sleeping") == false)
 		return (false);
