@@ -15,7 +15,6 @@
 void	destructor(t_allinfo *info)
 {
 	mutex_destroy(info);
-	destoroy_forks(info);
 	destoroy_timech(info);
 	destoroy_eatch(info);
 	free(info->philoinfo);
