@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   checker_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 18:07:02 by mochitteiun       #+#    #+#             */
-/*   Updated: 2023/03/14 18:07:02 by mochitteiun      ###   ########.fr       */
+/*   Created: 2023/03/26 22:31:16 by mochitteiun       #+#    #+#             */
+/*   Updated: 2023/03/26 22:31:16 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../../philosophers.h"
 
-int	main(int argc, char *argv[])
+bool	unlock_all(pthread_mutex_t *timech, pthread_mutex_t *diech)
 {
-	t_allinfo	allinfo;
+	pthread_mutex_unlock(timech);
+	pthread_mutex_unlock(diech);
+	return (false);
+}
 
-	if (ready_info(&allinfo, argc, argv) == false)
-		return (1);
-	if (constructer(&allinfo) == false)
-		return (1);
-	destructor(&allinfo);
-	return (0);
+bool	not_death(pthread_mutex_t *timech)
+{
+	pthread_mutex_unlock(timech);
+	return (true);
 }

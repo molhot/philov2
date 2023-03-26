@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 10:51:36 by user              #+#    #+#             */
-/*   Updated: 2023/03/24 13:24:02 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 19:53:58 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,18 @@ static	bool	create_forks(t_allinfo *info)
 
 	info->forks = malloc(sizeof(pthread_mutex_t) * info->philo_num);
 	if (info->forks == NULL)
+	{
+		mutex_destroy_component(info);
 		return (freereturn(info));
+	}
 	fork_num = 0;
 	while (fork_num != info->philo_num)
 	{
 		if (pthread_mutex_init(&info->forks[fork_num], NULL) != 0)
+		{
+			destoroy_forks_error(info, fork_num);
 			return (freereturn(info));
+		}
 		fork_num++;
 	}
 	return (true);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "../../philosophers.h"
 
 void	free_mutex(t_allinfo *info)
 {

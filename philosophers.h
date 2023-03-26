@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:57:45 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/24 17:55:25 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 23:44:16 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ bool			ready_info(t_allinfo *allinfo, int argc, char **argv);
 bool			arg_check(int argnum, char **arg);
 bool			ready_philosinfo(t_allinfo *info, char **argv);
 bool			create_samephilo(t_allinfo *info, char **argv, int argc);
+int				ft_atoi(const char *str);
+void			argnum_error(void);
+void			argminus_error(void);
+void			mutex_error(void);
+void			malloc_error(void);
 
 //construct
 bool			constructer(t_allinfo *info);
@@ -85,33 +90,23 @@ bool			error_unlockallfork(pthread_mutex_t *lf, pthread_mutex_t *rf);
 bool			sleeping(t_philo *info);
 void			*philo_checker(void *info_i);
 bool			print_die(t_allinfo *info, size_t pn, char *action);
-
 bool			die_check(t_allinfo *info);
 void			livestart_ch(t_philo *info);
-
-//destruct
-
-/************************basicfunc**************************/
-int				ft_atoi(const char *str);
+bool			unlock_all(pthread_mutex_t *timech, pthread_mutex_t *diech);
+bool			not_death(pthread_mutex_t *timech);
 long long		getnowtime(void);
 long long		getnowtime_ms(void);
-void			argnum_error(void);
-void			argminus_error(void);
-void			mutex_error(void);
-void			malloc_error(void);
-/*---------------------------------------------------------*/
 
-/***********************handlemutex*************************/
+//destruct
+void			destructor(t_allinfo *info);
+bool			destoroy_eatch_error(t_allinfo *info, size_t i);
+void			destoroy_eatch(t_allinfo *info);
+void			destoroy_forks_error(t_allinfo *info, size_t i);
+void			destoroy_forks(t_allinfo *info);
+bool			destoroy_timech_error(t_allinfo *info, size_t i);
+void			destoroy_timech(t_allinfo *info);
 void			mutex_destroy_component(t_allinfo *info);
-/*---------------------------------------------------------*/
-
-/**********************handlethreads************************/
-int				destroy_threads(t_allinfo *main);
-/*---------------------------------------------------------*/
-
-/***********************destroymutex************************/
 void			mutex_destroy(t_allinfo *info);
-/*---------------------------------------------------------*/
 
 /***********************free************************/
 void			free_mutex(t_allinfo *info);

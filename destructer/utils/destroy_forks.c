@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   destoroy_forks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 18:07:02 by mochitteiun       #+#    #+#             */
-/*   Updated: 2023/03/14 18:07:02 by mochitteiun      ###   ########.fr       */
+/*   Created: 2023/03/26 19:46:40 by mochitteiun       #+#    #+#             */
+/*   Updated: 2023/03/26 19:46:40 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../../philosophers.h"
 
-int	main(int argc, char *argv[])
+void	destoroy_forks_error(t_allinfo *info, size_t i)
 {
-	t_allinfo	allinfo;
+	size_t	f_n;
 
-	if (ready_info(&allinfo, argc, argv) == false)
-		return (1);
-	if (constructer(&allinfo) == false)
-		return (1);
-	destructor(&allinfo);
-	return (0);
+	f_n = 0;
+	while (f_n != i)
+	{
+		pthread_mutex_destroy(&info->forks[f_n]);
+		f_n++;
+	}
+}
+
+void	destoroy_forks(t_allinfo *info)
+{
+	size_t	f_n;
+	size_t	pn;
+
+	f_n = 0;
+	pn = info->philo_num;
+	while (f_n != pn)
+	{
+		pthread_mutex_destroy(&info->forks[f_n]);
+		f_n++;
+	}
 }

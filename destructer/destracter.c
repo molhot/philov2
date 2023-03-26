@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   destracter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 18:07:02 by mochitteiun       #+#    #+#             */
-/*   Updated: 2023/03/14 18:07:02 by mochitteiun      ###   ########.fr       */
+/*   Created: 2023/03/26 22:36:35 by mochitteiun       #+#    #+#             */
+/*   Updated: 2023/03/26 22:36:35 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "../philosophers.h"
 
-int	main(int argc, char *argv[])
+void	destructor(t_allinfo *info)
 {
-	t_allinfo	allinfo;
-
-	if (ready_info(&allinfo, argc, argv) == false)
-		return (1);
-	if (constructer(&allinfo) == false)
-		return (1);
-	destructor(&allinfo);
-	return (0);
+	mutex_destroy(info);
+	destoroy_forks(info);
+	destoroy_timech(info);
+	destoroy_eatch(info);
+	free(info->philoinfo);
+	free(info->forks);
 }

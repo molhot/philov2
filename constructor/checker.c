@@ -6,24 +6,11 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:38:57 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/24 18:55:02 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 22:36:16 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-
-static bool	unlockfork(pthread_mutex_t *timech, pthread_mutex_t *diech)
-{
-	pthread_mutex_unlock(timech);
-	pthread_mutex_unlock(diech);
-	return (false);
-}
-
-static bool	not_death(pthread_mutex_t *timech)
-{
-	pthread_mutex_unlock(timech);
-	return (true);
-}
 
 static bool	philo_deathistrue(size_t *p_n, t_allinfo *info, long long *d_t)
 {
@@ -39,11 +26,11 @@ static bool	philo_deathistrue(size_t *p_n, t_allinfo *info, long long *d_t)
 	diech = &(info->diecheck);
 	pthread_mutex_lock(&(info->diecheck));
 	if (info->philo_die_ornot == true)
-		return (unlockfork(timech, diech));
+		return (unlock_all(timech, diech));
 	if (print_die(info, *p_n + 1, "died") == false)
-		return (unlockfork(timech, diech));
+		return (unlock_all(timech, diech));
 	info->philo_die_ornot = true;
-	return (unlockfork(timech, diech));
+	return (unlock_all(timech, diech));
 }
 
 static bool	philo_satisfied(t_allinfo *info)
@@ -67,6 +54,21 @@ static bool	philo_satisfied(t_allinfo *info)
 	return (true);
 }
 
+bool	checker_end(t_allinfo *info, size_t philo_num, long long *d_t)
+{
+	pthread_mutex_lock(&(info->philoinfo)[philo_num].eat_ch);
+	if ((info->philoinfo)[philo_num].correctend == false)
+	{
+		if (philo_deathistrue(&philo_num, info, d_t) == false)
+		{
+			pthread_mutex_unlock(&(info->philoinfo)[philo_num].eat_ch);
+			return (false);
+		}
+	}
+	pthread_mutex_unlock(&(info->philoinfo)[philo_num].eat_ch);
+	return (true);
+}
+
 void	*philo_checker(void *info_i)
 {
 	size_t		philo_num;
@@ -80,16 +82,8 @@ void	*philo_checker(void *info_i)
 	{
 		if (philo_satisfied(info) == true)
 			return (NULL);
-		pthread_mutex_lock(&(info->philoinfo)[philo_num].eat_ch);
-		if ((info->philoinfo)[philo_num].correctend == false)
-		{
-			if (philo_deathistrue(&philo_num, info, &d_t) == false)
-			{
-				pthread_mutex_unlock(&(info->philoinfo)[philo_num].eat_ch);
-				return (NULL);
-			}
-		}
-		pthread_mutex_unlock(&(info->philoinfo)[philo_num].eat_ch);
+		if (checker_end(info, philo_num, &d_t) == false)
+			return (NULL);
 		philo_num++;
 		if (philo_num == info->philo_num)
 			philo_num = 0;

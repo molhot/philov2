@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../philosophers.h"
+#include "../../philosophers.h"
 
 void	mutex_destroy_component(t_allinfo *info)
 {

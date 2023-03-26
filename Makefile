@@ -13,9 +13,15 @@ SRCS = main.c\
 			constructor/checker.c\
 					constructor/utils/print_action.c\
 					constructor/utils/ft_getnowtime.c\
+					constructor/utils/checker_utils.c\
 					constructor/handle_commonval/handle_commonval.c\
-		basic_func/putserror.c\
-		free/destroy_mutex.c free/free.c
+		destructer/destracter.c\
+			destructer/utils/free.c\
+			destructer/utils/destroy_forks.c\
+			destructer/utils/destroy_eatch.c\
+			destructer/utils/destroy_mutex.c\
+			destructer/utils/destroy_timech.c\
+		basic_func/putserror.c
 
 OBJS = $(SRCS:.c=.o)
 

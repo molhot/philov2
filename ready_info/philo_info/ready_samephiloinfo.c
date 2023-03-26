@@ -12,7 +12,7 @@
 
 #include "../../philosophers.h"
 
-static	void	insert_info_tophilo(int philonum, \
+static	bool	insert_info_tophilo(int philonum, \
 t_allinfo *info, char **argv, int argc)
 {
 	((info->philoinfo)[philonum - 1]).fork_info.r_fork = philonum - 2;
@@ -29,10 +29,16 @@ t_allinfo *info, char **argv, int argc)
 	((info->philoinfo)[philonum - 1]).time_to_sleep = ft_atoi(argv[4]);
 	((info->philoinfo)[philonum - 1]).time_to_die = ft_atoi(argv[2]);
 	((info->philoinfo)[philonum - 1]).time_to_think = 0;
-	pthread_mutex_init(&(((info->philoinfo)[philonum - \
-	1]).timecheck_same), NULL);
-	pthread_mutex_init(&(((info->philoinfo)[philonum -
-	1]).eat_ch), NULL);
+	if (pthread_mutex_init(&(((info->philoinfo)[philonum - \
+	1]).timecheck_same), NULL) != 0)
+		return (destoroy_timech_error(info, philonum));
+	if (pthread_mutex_init(&(((info->philoinfo)[philonum - \
+	1]).eat_ch), NULL) != 0)
+	{
+		destoroy_timech(info);
+		return (destoroy_eatch_error(info, philonum));
+	}
+	return (true);
 }
 
 bool	create_samephilo(t_allinfo *info, char **argv, int argc)
@@ -48,7 +54,8 @@ bool	create_samephilo(t_allinfo *info, char **argv, int argc)
 	}
 	while (l_f_n != info->philo_num + 1)
 	{
-		insert_info_tophilo(l_f_n, info, argv, argc);
+		if (insert_info_tophilo(l_f_n, info, argv, argc) == false)
+			return (false);
 		l_f_n++;
 	}
 	((info->philoinfo)[0]).fork_info.r_fork = 0;
